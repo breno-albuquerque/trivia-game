@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logo from '../trivia.png';
-import { actionToken } from '../redux/action';
+import { actionToken, actionPlayer } from '../redux/action';
 import store from '../redux/store/store';
 
 class Login extends React.Component {
@@ -37,11 +37,14 @@ class Login extends React.Component {
 
   handleClick = async () => {
     const { history, dispatch } = this.props;
+    const { userName, userEmail } = this.state;
+
     const fetchApi = await fetch('https://opentdb.com/api_token.php?command=request');
     const response = await fetchApi.json();
     localStorage.setItem('token', response.token);
     history.push('/tela');
     dispatch(actionToken(response.token));
+    dispatch(actionPlayer({ userEmail, userName }));
     console.log((store.getState()).token);
   }
 
