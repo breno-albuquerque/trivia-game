@@ -9,11 +9,11 @@ class Feedback extends Component {
     const hash = md5(userEmail).toString();
     const url = `https://www.gravatar.com/avatar/${hash}`;
     return (
-      <div>
+      <header>
         <img src={ url } alt="avatar" data-testid="header-profile-picture" />
         <p data-testid="header-player-name">{ userName }</p>
         <p data-testid="header-score">{ score }</p>
-      </div>
+      </header>
     );
   }
 }
