@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import Feedback from './Feedback';
+import Feedback from './Feedback';
 // import { connect } from 'react-redux';
 
 class TelaDoJogo extends Component {
@@ -7,6 +7,7 @@ class TelaDoJogo extends Component {
     return (
       <div>
         tela do jogo
+        <Feedback />
       </div>
     );
   }
