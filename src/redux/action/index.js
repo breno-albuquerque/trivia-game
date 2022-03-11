@@ -8,11 +8,17 @@ export const actionPlayer = (payload) => ({ type: SEND_PLAYER, payload });
 export const actionFetchApi = (payload) => ({ type: SEND_FETCH, payload });
 export const actionScore = (payload) => ({ type: SEND_SCORE, payload });
 
-export function actionFetch({ token }) {
+export function actionFetch(token) {
   return async (dispatch) => {
     const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
     const fetchApi = await fetch(url);
     const response = await fetchApi.json();
-    dispatch(actionFetchApi(response));
+    const number = 3;
+    if (response.response_code === number) {
+      const fetchApiToken = await fetch('https://opentdb.com/api_token.php?command=request');
+      const newToken = await fetchApiToken.json();
+      localStorage.setItem('token', newToken.token);
+      dispatch(actionFetch(newToken.token));
+    } else dispatch(actionFetchApi(response));
   };
 }

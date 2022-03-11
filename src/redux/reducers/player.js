@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 const playerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SEND_SCORE:
-    return { score: state.score + action.payload}
+    return { score: state.score + action.payload };
   case SEND_PLAYER:
     return { ...state, ...action.payload };
   default:

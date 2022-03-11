@@ -11,15 +11,16 @@ class TelaDoJogo extends Component {
       contador: 0,
     };
   }
-  async componentDidMount() {
-    const { response, dispatch } = this.props;
-    if (response === 3) {
-      const fetchApiToken = await fetch('https://opentdb.com/api_token.php?command=request');
-      const token = await fetchApiToken.json();
-      localStorage.setItem('token', token);
-      dispatch(actionFetch(token));
-    }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    const token = localStorage.getItem('token');
+    dispatch(actionFetch(token));
   }
+
+  // comparaIndex = () => {
+  //   element.incorrect_answers.indexOf(question)
+  // }
 
   render() {
     const { result, history, dispatch } = this.props;
@@ -31,7 +32,7 @@ class TelaDoJogo extends Component {
         <Feedback />
         {result.map((element, i) => {
           const sortQuestions = [...element.incorrect_answers, element.correct_answer];
-          sortQuestions.sort();
+          sortQuestions.sort((a, b) => a > b ? -1 : 1);
           if (i === contador) {
             return (
               <fieldset>
@@ -42,9 +43,13 @@ class TelaDoJogo extends Component {
                     <button
                       type="button"
                       key={ index }
-                      data-testid={ question === element.correct_answer
-                        ? 'correct-answer' : `wrong-answer-${index}` }
-                      onClick={ ({ target }) => {if (target.innerHTML === element.correct_answer) dispatch(actionScore(1))} }
+                      data-testid={ question === element.correct_answer ? 'correct-answer'
+                        : `wrong-answer-${ element.incorrect_answers.indexOf(question) }` }
+                      onClick={ ({ target }) => {
+                        if (target.innerHTML === element.correct_answer) {
+                          dispatch(actionScore(1));
+                        }
+                      } }
                     >
                       { question }
                     </button>
@@ -70,12 +75,10 @@ class TelaDoJogo extends Component {
 
 const mapStateToProps = (state) => ({
   result: state.fetch.results,
-  response: state.fetch.response_code,
 });
 
 TelaDoJogo.propTypes = {
   result: PropTypes.objectOf(PropTypes.any).isRequired,
-  response: PropTypes.objectOf(PropTypes.any).isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
