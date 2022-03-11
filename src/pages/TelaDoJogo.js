@@ -25,13 +25,9 @@ class TelaDoJogo extends Component {
     const { result, history, dispatch, response } = this.props;
     const { contador } = this.state;
     const max = 4;
-
-
     if (contador > max) history.push('/feedback');
-
-    if (response === 3) {
-      this.handleInvalidTonken();
-    }
+    if (response === 3) this.handleInvalidTonken();
+    
 
     return (
       <div>
