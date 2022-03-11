@@ -12,37 +12,17 @@ class TelaDoJogo extends Component {
     };
   }
 
-<<<<<<< HEAD
   componentDidMount() {
     const { dispatch } = this.props;
     const token = localStorage.getItem('token');
-=======
-  handleInvalidTonken = async () => {
-    const { dispatch } = this.props;
-
-    const fetchApiToken = await fetch('https://opentdb.com/api_token.php?command=request');
-    const token = await fetchApiToken.json();
-    localStorage.setItem('token', token);
->>>>>>> 7281cbee1b08aacfece65fdf08191025343612cc
     dispatch(actionFetch(token));
   }
 
-  // comparaIndex = () => {
-  //   element.incorrect_answers.indexOf(question)
-  // }
-
   render() {
-    const { result, history, dispatch, response } = this.props;
+    const { result, history, dispatch } = this.props;
     const { contador } = this.state;
     const max = 4;
-
-
     if (contador > max) history.push('/feedback');
-
-    if (response === 3) {
-      this.handleInvalidTonken();
-    }
-
     return (
       <div>
         <Feedback />
