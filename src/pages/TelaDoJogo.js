@@ -1,40 +1,83 @@
-// import React, { Component } from 'react';
-// import Feedback from './Feedback';
-// import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Feedback from './Feedback';
+import { actionFetch, actionScore } from '../redux/action';
 
+class TelaDoJogo extends Component {
+  constructor() {
+    super();
+    this.state = {
+      contador: 0,
+    };
+  }
+  async componentDidMount() {
+    const { response, dispatch } = this.props;
+    if (response === 3) {
+      const fetchApiToken = await fetch('https://opentdb.com/api_token.php?command=request');
+      const token = await fetchApiToken.json();
+      localStorage.setItem('token', token);
+      dispatch(actionFetch(token));
+    }
+  }
 
-// class TelaDoJogo extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       index: 0,
-//     }
-//   }
-//   render() {
-//     const { fetch } = this.props;
-//     const { index } = this.state;
-//     console.log(fetch[0])
-//     // const { category, question, correct_answer, incorrect_answers } = response[index]
-//     return (
-//       <div data-testid='answer-options'>
-//         {/* <p data-testid='question-category'>{ category }</p>
-//         <p data-testid='question-text'>{ question }</p>
-//         <div>
-//           <p data-testid='correct-answer'>{ correct_answer }</p>
-//           {incorrect_answers.forEach((element, i) => {
-//             return <p data-testid={`wrong-answer-${i}`}>{ element }</p>
-//           })}
-//         </div>
-//         <button onClick={ () => { this.setState((prev) => ({ index: prev + 1 })) } }>Proxima pergunta</button> */}
-//       </div>
-//     );
-//   }
-// }
+  render() {
+    const { result, history, dispatch } = this.props;
+    const { contador } = this.state;
+    const max = 4;
+    if (contador > max) history.push('/feedback');
+    return (
+      <div>
+        <Feedback />
+        {result.map((element, i) => {
+          const sortQuestions = [...element.incorrect_answers, element.correct_answer];
+          sortQuestions.sort();
+          if (i === contador) {
+            return (
+              <fieldset>
+                <div data-testid="question-category">{ element.category }</div>
+                <div data-testid="question-text">{ element.question }</div>
+                <div data-testid="answer-options">
+                  { sortQuestions.map((question, index) => (
+                    <button
+                      type="button"
+                      key={ index }
+                      data-testid={ question === element.correct_answer
+                        ? 'correct-answer' : `wrong-answer-${index}` }
+                      onClick={ ({ target }) => {if (target.innerHTML === element.correct_answer) dispatch(actionScore(1))} }
+                    >
+                      { question }
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+            );
+          }
+        })}
+        <button
+          data-testid="btn-next"
+          type="button"
+          onClick={ () => {
+            this.setState((prev) => ({ contador: prev.contador + 1 }));
+          } }
+        >
+          {contador < max ? 'Proxima pergunta' : 'Finalizar'}
+        </button>
+      </div>
+    );
+  }
+}
 
-// const mapStateToProps = (state) => ({
-//   token: state.token,
-//   fetch: state.fetch.results,
-// });
+const mapStateToProps = (state) => ({
+  result: state.fetch.results,
+  response: state.fetch.response_code,
+});
 
-// export default connect(mapStateToProps)(TelaDoJogo);
+TelaDoJogo.propTypes = {
+  result: PropTypes.objectOf(PropTypes.any).isRequired,
+  response: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
+export default connect(mapStateToProps)(TelaDoJogo);

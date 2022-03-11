@@ -45,7 +45,7 @@ class Login extends React.Component {
 
     dispatch(actionToken(response.token));
     dispatch(actionPlayer({ userEmail, userName }));
-    dispatch(actionFetch(response.token));
+    dispatch(actionFetch(response));
 
     history.push('/tela');
   }
@@ -57,9 +57,6 @@ class Login extends React.Component {
       <div className="App">
         <header className="App-header">
           <img src={ logo } className="App-logo" alt="logo" />
-          <p>
-            SUA VEZ
-          </p>
           <form>
             <label htmlFor="input-player-name">
               {' '}
@@ -115,4 +112,4 @@ Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(Login);
+export default connect(null, null)(Login);
