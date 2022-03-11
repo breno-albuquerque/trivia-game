@@ -3,14 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Feedback from './Feedback';
 import { actionFetch, actionScore } from '../redux/action';
-import Feedback from './Feedback';
+import './TelaDoJogo.css';
 
 class TelaDoJogo extends Component {
   constructor() {
     super();
     this.state = {
       contador: 0,
+      isColorVisible: false,
     };
+
+    this.turnColorVisible = this.turnColorVisible.bind(this);
   }
 
   componentDidMount() {
@@ -27,9 +30,35 @@ class TelaDoJogo extends Component {
     }
   }
 
+  handleScore = (target, element) => {
+    const { dispatch } = this.props;
+
+    if (target.innerHTML === element.correct_answer) {
+      dispatch(actionScore(1));
+    }
+  }
+
+  turnColorVisible = () => {
+    this.setState({
+      isColorVisible: true,
+    });
+  }
+
+  turnColorInvisible = () => {
+    this.setState({
+      isColorVisible: false,
+    });
+  }
+
+  handleColorsClasses = (question, element) => {
+    console.log('color');
+    if (question === element.correct_answer) return 'correct-answer';
+    return 'wrong-answer';
+  }
+
   render() {
-    const { result, history, dispatch } = this.props;
-    const { contador } = this.state;
+    const { result, history } = this.props;
+    const { contador, isColorVisible } = this.state;
     const max = 4;
     if (contador > max) history.push('/feedback');
     return (
@@ -50,10 +79,13 @@ class TelaDoJogo extends Component {
                       key={ index }
                       data-testid={ question === element.correct_answer ? 'correct-answer'
                         : `wrong-answer-${element.incorrect_answers.indexOf(question)}` }
+                      className={
+                        isColorVisible
+                          ? this.handleColorsClasses(question, element) : null
+                      }
                       onClick={ ({ target }) => {
-                        if (target.innerHTML === element.correct_answer) {
-                          dispatch(actionScore(1));
-                        }
+                        this.handleScore(target, element);
+                        this.turnColorVisible();
                       } }
                     >
                       { question }
@@ -70,6 +102,7 @@ class TelaDoJogo extends Component {
           type="button"
           onClick={ () => {
             this.setState((prev) => ({ contador: prev.contador + 1 }));
+            this.turnColorInvisible();
           } }
         >
           {contador < max ? 'Proxima pergunta' : 'Finalizar'}
