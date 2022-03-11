@@ -37,15 +37,17 @@ class Login extends React.Component {
   handleClick = async () => {
     const { history, dispatch } = this.props;
     const { userName, userEmail } = this.state;
-    const { token } = this.props.token;
 
     const fetchApiToken = await fetch('https://opentdb.com/api_token.php?command=request');
     const response = await fetchApiToken.json();
+
     localStorage.setItem('token', response.token);
-    history.push('/tela');
+
     dispatch(actionToken(response.token));
     dispatch(actionPlayer({ userEmail, userName }));
-    dispatch(actionFetch(token));
+    dispatch(actionFetch(response.token));
+
+    history.push('/tela');
   }
 
   render() {
@@ -113,8 +115,4 @@ Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  token: state.token,
-});
-
-export default connect(mapStateToProps, null)(Login);
+export default connect()(Login);

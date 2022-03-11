@@ -12,6 +12,13 @@ export function actionFetch(token) {
       const url = `https://opentdb.com/api.php?amount=5&token=${token}`
       const fetchApi = await fetch(url);
       const response = await fetchApi.json();
-      return dispatch(actionFetchApi(response));
+      dispatch(actionFetchApi(response));
     };
   }
+
+// export const actionFetch = (token) => async (dispatch) => {
+//     const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
+//     const fetchApi = await fetch(url);
+//     const response = await fetchApi.json();
+//     dispatch(actionFetchApi(response));
+// }
