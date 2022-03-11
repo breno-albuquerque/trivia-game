@@ -28,7 +28,7 @@ class TelaDoJogo extends Component {
         <Feedback />
         {result.map((element, i) => {
           const sortQuestions = [...element.incorrect_answers, element.correct_answer];
-          sortQuestions.sort((a, b) => a > b ? -1 : 1);
+          sortQuestions.sort();
           if (i === contador) {
             return (
               <fieldset>
@@ -40,7 +40,7 @@ class TelaDoJogo extends Component {
                       type="button"
                       key={ index }
                       data-testid={ question === element.correct_answer ? 'correct-answer'
-                        : `wrong-answer-${ element.incorrect_answers.indexOf(question) }` }
+                        : `wrong-answer-${element.incorrect_answers.indexOf(question)}` }
                       onClick={ ({ target }) => {
                         if (target.innerHTML === element.correct_answer) {
                           dispatch(actionScore(1));
