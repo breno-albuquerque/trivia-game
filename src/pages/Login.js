@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logo from '../trivia.png';
-import { actionToken, actionPlayer, actionFetch } from '../redux/action';
+import { actionToken, actionPlayer } from '../redux/action';
 
 class Login extends React.Component {
   state = {
     userName: '',
     userEmail: '',
     isDisabled: true,
+    // responseCode: 3,
   }
 
   handleChange = ({ target }) => {
@@ -45,7 +46,6 @@ class Login extends React.Component {
 
     dispatch(actionToken(response.token));
     dispatch(actionPlayer({ userEmail, userName }));
-    dispatch(actionFetch(response));
 
     history.push('/tela');
   }

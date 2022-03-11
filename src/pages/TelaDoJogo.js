@@ -12,23 +12,17 @@ class TelaDoJogo extends Component {
     };
   }
 
-  handleInvalidTonken = async () => {
+  componentDidMount() {
     const { dispatch } = this.props;
-
-    const fetchApiToken = await fetch('https://opentdb.com/api_token.php?command=request');
-    const token = await fetchApiToken.json();
-    localStorage.setItem('token', token);
+    const token = localStorage.getItem('token');
     dispatch(actionFetch(token));
   }
 
   render() {
-    const { result, history, dispatch, response } = this.props;
+    const { result, history, dispatch } = this.props;
     const { contador } = this.state;
     const max = 4;
     if (contador > max) history.push('/feedback');
-    if (response === 3) this.handleInvalidTonken();
-    
-
     return (
       <div>
         <Feedback />
@@ -45,9 +39,13 @@ class TelaDoJogo extends Component {
                     <button
                       type="button"
                       key={ index }
-                      data-testid={ question === element.correct_answer
-                        ? 'correct-answer' : `wrong-answer-${index}` }
-                      onClick={ ({ target }) => {if (target.innerHTML === element.correct_answer) dispatch(actionScore(1))} }
+                      data-testid={ question === element.correct_answer ? 'correct-answer'
+                        : `wrong-answer-${element.incorrect_answers.indexOf(question)}` }
+                      onClick={ ({ target }) => {
+                        if (target.innerHTML === element.correct_answer) {
+                          dispatch(actionScore(1));
+                        }
+                      } }
                     >
                       { question }
                     </button>
@@ -73,12 +71,10 @@ class TelaDoJogo extends Component {
 
 const mapStateToProps = (state) => ({
   result: state.fetch.results,
-  response: state.fetch.response_code,
 });
 
 TelaDoJogo.propTypes = {
   result: PropTypes.objectOf(PropTypes.any).isRequired,
-  response: PropTypes.objectOf(PropTypes.any).isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
