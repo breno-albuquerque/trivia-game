@@ -44,10 +44,8 @@ class TelaDoJogo extends Component {
     });
   }
 
-  turnColorInvisible = () => {
-    this.setState({
-      isColorVisible: false,
-    });
+  handleNext = () => {
+    this.setState((prev) => ({ contador: prev.contador + 1, isColorVisible: false }));
   }
 
   handleColorsClasses = (question, element) => {
@@ -97,16 +95,14 @@ class TelaDoJogo extends Component {
           }
           return (''); // Gambiarra pro lint
         })}
-        <button
-          data-testid="btn-next"
-          type="button"
-          onClick={ () => {
-            this.setState((prev) => ({ contador: prev.contador + 1 }));
-            this.turnColorInvisible();
-          } }
-        >
-          {contador < max ? 'Proxima pergunta' : 'Finalizar'}
-        </button>
+        {isColorVisible ? (
+          <button
+            data-testid="btn-next"
+            type="button"
+            onClick={ this.handleNext }
+          >
+            {contador < max ? 'Proxima pergunta' : 'Finalizar'}
+          </button>) : ''}
 
       </div>
     );
