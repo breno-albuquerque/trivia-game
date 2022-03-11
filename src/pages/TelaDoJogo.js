@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Feedback from './Feedback';
 import { actionFetch, actionScore } from '../redux/action';
+import Feedback from './Feedback';
 
 class TelaDoJogo extends Component {
   constructor() {
@@ -73,6 +74,7 @@ class TelaDoJogo extends Component {
         >
           {contador < max ? 'Proxima pergunta' : 'Finalizar'}
         </button>
+
       </div>
     );
   }
