@@ -39,23 +39,23 @@ class TelaDoJogo extends Component {
   }
 
   turnColorVisible = () => {
-    console.log('visible')
+    console.log('visible');
     this.setState({
       isColorVisible: true,
-    })
+    });
   }
 
   turnColorInvisible = () => {
-    console.log('invisible')
+    console.log('invisible');
     this.setState({
       isColorVisible: false,
-    })
+    });
   }
 
   handleColorsClasses = (question, element) => {
-    console.log('color')
+    console.log('color');
     if (question === element.correct_answer) return 'correct-answer';
-    else return 'wrong-answer'
+    return 'wrong-answer';
   }
 
   render() {
@@ -77,18 +77,18 @@ class TelaDoJogo extends Component {
                 <div data-testid="answer-options">
                   { sortQuestions.map((question, index) => (
                     <button
-                    type="button"
-                    key={ index }
-
-                    data-testid={ question === element.correct_answer ? 'correct-answer'
-                      : `wrong-answer-${element.incorrect_answers.indexOf(question)}` }
-
-                    className={ isColorVisible ? this.handleColorsClasses(question, element) : null }
-
-                    onClick={ ({ target }) => {
-                      this.handleScore(target, element);
-                      this.turnColorVisible()
-                    } }
+                      type="button"
+                      key={ index }
+                      data-testid={ question === element.correct_answer ? 'correct-answer'
+                        : `wrong-answer-${element.incorrect_answers.indexOf(question)}` }
+                      className={
+                        isColorVisible
+                          ? this.handleColorsClasses(question, element) : null
+                      }
+                      onClick={ ({ target }) => {
+                        this.handleScore(target, element);
+                        this.turnColorVisible();
+                      } }
                     >
                       { question }
                     </button>
