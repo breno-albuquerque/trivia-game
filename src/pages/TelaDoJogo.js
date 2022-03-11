@@ -18,6 +18,14 @@ class TelaDoJogo extends Component {
     dispatch(actionFetch(token));
   }
 
+  // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+  shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
   render() {
     const { result, history, dispatch } = this.props;
     const { contador } = this.state;
@@ -27,9 +35,9 @@ class TelaDoJogo extends Component {
       <div>
         <Feedback />
         {result.map((element, i) => {
-          const sortQuestions = [...element.incorrect_answers, element.correct_answer];
-          sortQuestions.sort();
           if (i === contador) {
+            const sortQuestions = [...element.incorrect_answers, element.correct_answer];
+            this.shuffleArray(sortQuestions);
             return (
               <fieldset>
                 <div data-testid="question-category">{ element.category }</div>
@@ -54,6 +62,7 @@ class TelaDoJogo extends Component {
               </fieldset>
             );
           }
+          return (''); // Gambiarra pro lint
         })}
         <button
           data-testid="btn-next"
