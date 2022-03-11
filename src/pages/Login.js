@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logo from '../trivia.png';
 import { actionToken, actionPlayer } from '../redux/action';
-import store from '../redux/store/store';
 
 class Login extends React.Component {
   state = {
     userName: '',
     userEmail: '',
     isDisabled: true,
+    // responseCode: 3,
   }
 
   handleChange = ({ target }) => {
@@ -39,13 +39,15 @@ class Login extends React.Component {
     const { history, dispatch } = this.props;
     const { userName, userEmail } = this.state;
 
-    const fetchApi = await fetch('https://opentdb.com/api_token.php?command=request');
-    const response = await fetchApi.json();
+    const fetchApiToken = await fetch('https://opentdb.com/api_token.php?command=request');
+    const response = await fetchApiToken.json();
+
     localStorage.setItem('token', response.token);
-    history.push('/tela');
+
     dispatch(actionToken(response.token));
     dispatch(actionPlayer({ userEmail, userName }));
-    console.log((store.getState()).token);
+
+    history.push('/tela');
   }
 
   render() {
@@ -55,9 +57,6 @@ class Login extends React.Component {
       <div className="App">
         <header className="App-header">
           <img src={ logo } className="App-logo" alt="logo" />
-          <p>
-            SUA VEZ
-          </p>
           <form>
             <label htmlFor="input-player-name">
               {' '}
@@ -113,4 +112,4 @@ Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(Login);
+export default connect(null, null)(Login);

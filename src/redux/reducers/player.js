@@ -1,4 +1,4 @@
-import { SEND_PLAYER } from '../action/index';
+import { SEND_PLAYER, SEND_SCORE } from '../action/index';
 
 const INITIAL_STATE = {
   userName: '',
@@ -8,6 +8,8 @@ const INITIAL_STATE = {
 
 const playerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case SEND_SCORE:
+    return { score: state.score + action.payload };
   case SEND_PLAYER:
     return { ...state, ...action.payload };
   default:
