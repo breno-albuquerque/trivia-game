@@ -39,14 +39,12 @@ class TelaDoJogo extends Component {
   }
 
   turnColorVisible = () => {
-    console.log('visible');
     this.setState({
       isColorVisible: true,
     });
   }
 
   turnColorInvisible = () => {
-    console.log('invisible');
     this.setState({
       isColorVisible: false,
     });
@@ -109,6 +107,7 @@ class TelaDoJogo extends Component {
         >
           {contador < max ? 'Proxima pergunta' : 'Finalizar'}
         </button>
+
       </div>
     );
   }
