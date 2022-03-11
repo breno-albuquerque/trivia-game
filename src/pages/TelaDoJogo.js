@@ -27,9 +27,9 @@ class TelaDoJogo extends Component {
       <div>
         <Feedback />
         {result.map((element, i) => {
-          const sortQuestions = [...element.incorrect_answers, element.correct_answer];
-          sortQuestions.sort();
           if (i === contador) {
+            const sortQuestions = [...element.incorrect_answers, element.correct_answer];
+            sortQuestions.sort();
             return (
               <fieldset>
                 <div data-testid="question-category">{ element.category }</div>
@@ -54,6 +54,7 @@ class TelaDoJogo extends Component {
               </fieldset>
             );
           }
+          return (''); // Gambiarra pro lint
         })}
         <button
           data-testid="btn-next"
