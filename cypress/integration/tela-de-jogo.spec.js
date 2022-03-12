@@ -316,7 +316,7 @@ describe('11 - [TELA DE JOGO] Desenvolva o jogo de forma que a pessoa que joga d
     });
   });
 
-  it('Será validado se a pessoa usuária é redirecionada para a tela de _feedback_ após a quinta pergunta', () => {
+  it.only('Será validado se a pessoa usuária é redirecionada para a tela de _feedback_ após a quinta pergunta', () => {
     cy.get(CORRECT_ALTERNATIVE_SELECTOR).click();
     cy.get(BUTTON_NEXT_QUESTION_SELECTOR).click();
     cy.get(CORRECT_ALTERNATIVE_SELECTOR).click();
