@@ -12,7 +12,9 @@ class Feedback extends Component {
       <header>
         <img src={ url } alt="avatar" data-testid="header-profile-picture" />
         <p data-testid="header-player-name">{ userName }</p>
-        <p data-testid="header-score">{ score }</p>
+        <p data-testid={ finish ? "feedback-total-score" : "header-score"}>{ score }</p>
+        <p data-testid='feedback-total-question'>{'Colocar os acertos aqui'}</p>
+        {finish ? <p data-testid="feedback-text">{ msg }</p> : ''}
       </header>
     );
   }
