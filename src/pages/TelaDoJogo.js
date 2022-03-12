@@ -46,6 +46,11 @@ class TelaDoJogo extends Component {
   }
 
   handleNext = () => {
+    const { contador } = this.state;
+    const { history } = this.props
+    if (contador === 4) {
+      history.push('./feedback')
+    }
     this.setState((prev) => ({ contador: prev.contador + 1, isColorVisible: false }));
   }
 
