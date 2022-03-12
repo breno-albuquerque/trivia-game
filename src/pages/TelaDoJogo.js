@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { actionFinish } from '../redux/action';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Question from './Question';
@@ -47,8 +48,9 @@ class TelaDoJogo extends Component {
 
   handleNext = () => {
     const { contador } = this.state;
-    const { history } = this.props
+    const { history, dispatch } = this.props
     if (contador === 4) {
+      dispatch(actionFinish('true'));
       history.push('./feedback')
     }
     this.setState((prev) => ({ contador: prev.contador + 1, isColorVisible: false }));

@@ -4,12 +4,15 @@ export const SEND_FETCH = 'FETCH';
 export const SEND_ASSERTION = 'ASSERION';
 export const TIME_OUT = 'TIME';
 export const SEND_SCORE = 'SCORE';
+export const SEND_FINISH = 'FINISH';
+
 
 export const actionToken = (payload) => ({ type: SEND_TOKEN, payload });
 export const actionPlayer = (payload) => ({ type: SEND_PLAYER, payload });
 export const actionFetchApi = (payload) => ({ type: SEND_FETCH, payload });
 export const actionAssertion = (payload) => ({ type: SEND_ASSERTION, payload });
 export const actionScore = (payload) => ({ type: SEND_SCORE, payload });
+export const actionFinish = (payload) => ({ type: SEND_FINISH, payload });
 
 export function actionFetch(token) {
   return async (dispatch) => {

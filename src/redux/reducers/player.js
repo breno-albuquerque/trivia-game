@@ -1,10 +1,11 @@
-import { SEND_PLAYER, SEND_ASSERTION, SEND_SCORE } from '../action/index';
+import { SEND_PLAYER, SEND_ASSERTION, SEND_SCORE, SEND_FINISH } from '../action/index';
 
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
   score: 0,
   gravatarEmail: '',
+  finish: false,
 };
 
 const playerReducer = (state = INITIAL_STATE, action) => {
@@ -12,6 +13,10 @@ const playerReducer = (state = INITIAL_STATE, action) => {
   case SEND_ASSERTION:
     return {
       ...state, assertions: state.assertions + action.payload,
+    };
+  case SEND_FINISH:
+    return {
+      ...state, finish: action.payload,
     };
   case SEND_PLAYER:
     return {
