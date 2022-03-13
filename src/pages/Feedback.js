@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import md5 from 'crypto-js/md5';
 import { actionClear } from '../redux/action';
 
 class Feedback extends Component {
@@ -17,13 +16,11 @@ class Feedback extends Component {
   }
 
   render() {
-    const { userName, userEmail, score, finish, assertions } = this.props;
-    const hash = md5(userEmail).toString();
-    const url = `https://www.gravatar.com/avatar/${hash}`;
+    const { userName, score, finish, assertions, gravatarImage } = this.props;
     const msg = assertions <= 2 ? 'Could be better...' : 'Well Done!';
     return (
       <header>
-        <img src={ url } alt="avatar" data-testid="header-profile-picture" />
+        <img src={ gravatarImage } alt="avatar" data-testid="header-profile-picture" />
         <p data-testid="header-player-name">{ userName }</p>
         <p data-testid="header-score">{ score }</p>
         <p data-testid="feedback-total-question">{ assertions }</p>
@@ -57,10 +54,11 @@ const mapStateToProps = ({ player }) => ({
   score: player.score,
   assertions: player.assertions,
   finish: player.finish,
+  gravatarImage: player.gravatarImage,
 });
 
 Feedback.propTypes = {
-  userEmail: PropTypes.string.isRequired,
+  gravatarImage: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,

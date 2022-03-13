@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import md5 from 'crypto-js/md5';
 import logo from '../trivia.png';
 import { actionToken, actionPlayer, actionFetch } from '../redux/action';
 
@@ -44,7 +45,11 @@ class Login extends React.Component {
     localStorage.setItem('token', response.token);
 
     dispatch(actionToken(response.token));
-    dispatch(actionPlayer({ userEmail, userName }));
+
+    const hash = md5(userEmail).toString();
+    const url = `https://www.gravatar.com/avatar/${hash}`;
+
+    dispatch(actionPlayer({ userEmail, userName, url }));
     dispatch(actionFetch(response.token));
   }
 

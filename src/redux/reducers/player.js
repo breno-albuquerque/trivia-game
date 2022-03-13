@@ -1,10 +1,11 @@
-import { SEND_PLAYER, SEND_SCORE, SEND_FINISH } from '../action/index';
+import { SEND_PLAYER, SEND_SCORE, SEND_FINISH, RESET_PLAYER } from '../action/index';
 
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
   score: 0,
   gravatarEmail: '',
+  gravatarImage: '',
   finish: false,
 };
 
@@ -14,11 +15,14 @@ const playerReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state, finish: action.payload,
     };
+  case RESET_PLAYER:
+    return INITIAL_STATE;
   case SEND_PLAYER:
     return {
       ...state,
       name: action.payload.userName,
       gravatarEmail: action.payload.userEmail,
+      gravatarImage: action.payload.url,
     };
   case SEND_SCORE:
     return {

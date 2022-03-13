@@ -48,11 +48,21 @@ class TelaDoJogo extends Component {
 
   handleNext = () => {
     const { contador } = this.state;
-    const { history, dispatch } = this.props;
+    const { history, dispatch, name, score, picture } = this.props;
     const magic = 4;
+
     if (contador === magic) {
       dispatch(actionFinish(true));
       history.push('./feedback');
+
+      const previousPlayers = JSON.parse(localStorage.getItem('ranking'));
+      let savePlayers;
+      if (previousPlayers) {
+        savePlayers = [...previousPlayers, { name, score, picture }];
+      } else {
+        savePlayers = [{ name, score, picture }];
+      }
+      localStorage.setItem('ranking', JSON.stringify(savePlayers));
     }
     this.setState((prev) => ({ contador: prev.contador + 1, isColorVisible: false }));
   }
@@ -92,12 +102,18 @@ class TelaDoJogo extends Component {
 
 const mapStateToProps = (state) => ({
   result: state.fetch.results,
+  name: state.player.name,
+  score: state.player.score,
+  picture: state.player.gravatarImage,
 });
 
 TelaDoJogo.propTypes = {
   result: PropTypes.objectOf(PropTypes.any).isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  score: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(TelaDoJogo);
