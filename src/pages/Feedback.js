@@ -11,6 +11,11 @@ class Feedback extends Component {
     dispatch(actionClear());
   };
 
+  click = () => {
+    const { history } = this.props;
+    history.push('./ranking');
+  }
+
   render() {
     const { userName, userEmail, score, finish, assertions } = this.props;
     const hash = md5(userEmail).toString();
@@ -32,6 +37,13 @@ class Feedback extends Component {
               onClick={ this.handleClick }
             >
               Play Again
+            </button>
+            <button
+              data-testid="btn-ranking"
+              type="button"
+              onClick={ this.click }
+            >
+              Ranking
             </button>
           </div>) : ('') }
       </header>
