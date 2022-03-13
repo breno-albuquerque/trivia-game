@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { actionAssertion, actionScore } from '../redux/action';
+import PropTypes from 'prop-types';
+import { actionScore } from '../redux/action';
 
 class Answers extends React.Component {
   state = {
@@ -10,12 +11,12 @@ class Answers extends React.Component {
   }
 
   componentDidMount() {
-    console.log('teste');
+    const { timer, isDisabled } = this.state;
+    const second = 1000;
     setInterval(() => {
-      const { timer, isDisabled } = this.state;
       if (timer > 0 && isDisabled === false) return this.timeUpdate();
       return null;
-    }, 1000);
+    }, second);
   }
 
   timeUpdate = () => {
@@ -51,21 +52,19 @@ class Answers extends React.Component {
     } else if (difficulty === 'medium') {
       multiplyer = 2;
     } else {
-      multiplyer = 3;
+      const magicNum = 3;
+      multiplyer = magicNum;
     }
 
-    const score = 10 + (timer * multiplyer);
+    const ten = 10;
+    const score = ten + (timer * multiplyer);
 
     if (target.innerHTML === questionObj.correct_answer) {
-      dispatch(actionAssertion(1));
       dispatch(actionScore(score));
-
-      //  localStorage.setItem('ranking', response.token);
     }
   }
 
   handleDisable = () => {
-    const { dispatch } = this.props;
     const { timer } = this.state;
 
     if (timer === 0) {
@@ -77,10 +76,17 @@ class Answers extends React.Component {
   }
 
   render() {
-    const { answers, contador, results, handleColorsClasses, isColorVisible, turnColorVisible, max, handleNext } = this.props;
+    const { answers,
+      contador,
+      results,
+      handleColorsClasses,
+      isColorVisible,
+      turnColorVisible,
+      handleNext,
+    } = this.props;
     const questionObj = results[contador];
     const { timer, isDisabled, timeOut } = this.state;
-
+    const max = 4;
     return (
       <div data-testid="answer-options">
         { answers[contador].map((answer, index) => (
@@ -88,8 +94,10 @@ class Answers extends React.Component {
             disabled={ isDisabled }
             type="button"
             key={ index }
-            data-testid={ answer === questionObj.correct_answer ? 'correct-answer' : `wrong-answer-${questionObj.incorrect_answers.indexOf(answer)}` }
-            className={ isColorVisible || timeOut ? handleColorsClasses(answer, questionObj) : null }
+            data-testid={ answer === questionObj.correct_answer ? 'correct-answer'
+              : `wrong-answer-${questionObj.incorrect_answers.indexOf(answer)}` }
+            className={ isColorVisible || timeOut
+              ? handleColorsClasses(answer, questionObj) : null }
             onClick={ ({ target }) => {
               turnColorVisible();
               this.stopTimer();
@@ -122,5 +130,16 @@ class Answers extends React.Component {
 const mapStateToProps = (state) => ({
   results: state.fetch.results,
 });
+
+Answers.propTypes = {
+  results: PropTypes.objectOf(PropTypes.any).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  handleNext: PropTypes.func.isRequired,
+  turnColorVisible: PropTypes.func.isRequired,
+  handleColorsClasses: PropTypes.func.isRequired,
+  isColorVisible: PropTypes.func.isRequired,
+  contador: PropTypes.number.isRequired,
+  answers: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default connect(mapStateToProps, null)(Answers);

@@ -1,4 +1,4 @@
-import { SEND_PLAYER, SEND_ASSERTION, SEND_SCORE, SEND_FINISH } from '../action/index';
+import { SEND_PLAYER, SEND_SCORE, SEND_FINISH } from '../action/index';
 
 const INITIAL_STATE = {
   name: '',
@@ -10,10 +10,6 @@ const INITIAL_STATE = {
 
 const playerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SEND_ASSERTION:
-    return {
-      ...state, assertions: state.assertions + action.payload,
-    };
   case SEND_FINISH:
     return {
       ...state, finish: action.payload,
@@ -28,6 +24,7 @@ const playerReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: state.score + action.payload,
+      assertions: state.assertions + 1,
     };
   default:
     return state;

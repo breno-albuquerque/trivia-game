@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { actionFinish } from '../redux/action';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionFinish } from '../redux/action';
 import Question from './Question';
 import Feedback from './Feedback';
 import Answers from './Answers';
@@ -48,10 +48,11 @@ class TelaDoJogo extends Component {
 
   handleNext = () => {
     const { contador } = this.state;
-    const { history, dispatch } = this.props
-    if (contador === 4) {
-      dispatch(actionFinish('true'));
-      history.push('./feedback')
+    const { history, dispatch } = this.props;
+    const magic = 4;
+    if (contador === magic) {
+      dispatch(actionFinish(true));
+      history.push('./feedback');
     }
     this.setState((prev) => ({ contador: prev.contador + 1, isColorVisible: false }));
   }
@@ -84,7 +85,6 @@ class TelaDoJogo extends Component {
           handleColorsClasses={ this.handleColorsClasses }
           turnColorVisible={ this.turnColorVisible }
           handleNext={ this.handleNext }
-          max={ max }
         />}
 
       </div>

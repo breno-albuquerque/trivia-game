@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Question extends React.Component {
   render() {
@@ -15,7 +16,7 @@ class Question extends React.Component {
                 <div data-testid="question-text">{ element.question }</div>
               </fieldset>
             );
-          }
+          } return ('');
         }) }
       </div>
     );
@@ -25,5 +26,10 @@ class Question extends React.Component {
 const mapStateToProps = (state) => ({
   results: state.fetch.results,
 });
+
+Question.propTypes = {
+  results: PropTypes.objectOf(PropTypes.any).isRequired,
+  contador: PropTypes.number.isRequired,
+};
 
 export default connect(mapStateToProps, null)(Question);
