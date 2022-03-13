@@ -2,15 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import md5 from 'crypto-js/md5';
 import logo from '../trivia.png';
-import { actionToken, actionPlayer } from '../redux/action';
+import { actionToken, actionPlayer, actionFetch } from '../redux/action';
 
 class Login extends React.Component {
   state = {
     userName: '',
     userEmail: '',
     isDisabled: true,
-    // responseCode: 3,
   }
 
   handleChange = ({ target }) => {
@@ -36,7 +36,7 @@ class Login extends React.Component {
   }
 
   handleClick = async () => {
-    const { history, dispatch } = this.props;
+    const { dispatch } = this.props;
     const { userName, userEmail } = this.state;
 
     const fetchApiToken = await fetch('https://opentdb.com/api_token.php?command=request');
@@ -45,13 +45,18 @@ class Login extends React.Component {
     localStorage.setItem('token', response.token);
 
     dispatch(actionToken(response.token));
-    dispatch(actionPlayer({ userEmail, userName }));
 
-    history.push('/tela');
+    const hash = md5(userEmail).toString();
+    const url = `https://www.gravatar.com/avatar/${hash}`;
+
+    dispatch(actionPlayer({ userEmail, userName, url }));
+    dispatch(actionFetch(response.token));
   }
 
   render() {
     const { userName, userEmail, isDisabled } = this.state;
+    const { result, history } = this.props;
+    if (result.length > 0) history.push('/tela');
 
     return (
       <div className="App">
@@ -110,6 +115,11 @@ class Login extends React.Component {
 Login.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
+  result: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default connect(null, null)(Login);
+const mapStateToProps = (state) => ({
+  result: state.fetch.results,
+});
+
+export default connect(mapStateToProps, null)(Login);
