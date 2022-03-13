@@ -10,7 +10,7 @@ export default function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/tela" component={ TelaDoJogo } />
+      <Route exact path="/tela" component={ TelaDoJogo } />
       <Route path="/settings" component={ Settings } />
       <Route path="/feedback" component={ Feedback } />
     </Switch>

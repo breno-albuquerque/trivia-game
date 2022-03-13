@@ -51,7 +51,6 @@ class Login extends React.Component {
   render() {
     const { userName, userEmail, isDisabled } = this.state;
     const { result, history } = this.props;
-
     if (result.length > 0) history.push('/tela');
 
     return (

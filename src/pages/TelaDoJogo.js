@@ -58,7 +58,6 @@ class TelaDoJogo extends Component {
   }
 
   handleColorsClasses = (answer, questionObj) => {
-    console.log('class');
     if (answer === questionObj.correct_answer) return 'correct-answer';
     return 'wrong-answer';
   }
@@ -71,7 +70,6 @@ class TelaDoJogo extends Component {
 
     return (
       <div>
-
         <Feedback />
 
         <Question contador={ contador } />
@@ -85,8 +83,7 @@ class TelaDoJogo extends Component {
           handleColorsClasses={ this.handleColorsClasses }
           turnColorVisible={ this.turnColorVisible }
           handleNext={ this.handleNext }
-        />}
-
+        /> }
       </div>
 
     );

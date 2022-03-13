@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
+import { actionClear } from '../redux/action';
 
 class Feedback extends Component {
+  handleClick = () => {
+    const { dispatch, history } = this.props;
+    history.push('/');
+    dispatch(actionClear());
+  };
+
   render() {
     const { userName, userEmail, score, finish, assertions } = this.props;
     const hash = md5(userEmail).toString();
@@ -13,11 +20,20 @@ class Feedback extends Component {
       <header>
         <img src={ url } alt="avatar" data-testid="header-profile-picture" />
         <p data-testid="header-player-name">{ userName }</p>
-        { finish ? <p data-testid="feedback-total-score">{ score }</p>
-          : '' }
         <p data-testid="header-score">{ score }</p>
         <p data-testid="feedback-total-question">{ assertions }</p>
-        { finish ? <p data-testid="feedback-text">{ msg }</p> : ''}
+        { finish ? (
+          <div>
+            <p data-testid="feedback-total-score">{ score }</p>
+            <p data-testid="feedback-text">{ msg }</p>
+            <button
+              data-testid="btn-play-again"
+              type="button"
+              onClick={ this.handleClick }
+            >
+              Play Again
+            </button>
+          </div>) : ('') }
       </header>
     );
   }
@@ -37,6 +53,8 @@ Feedback.propTypes = {
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
   finish: PropTypes.bool.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Feedback);
