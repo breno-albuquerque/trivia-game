@@ -15,4 +15,4 @@ class Ranking extends Component {
 //   return {};
 // }
 
-export default connect(mapStateToProps)(Ranking);
+export default connect()(Ranking);
