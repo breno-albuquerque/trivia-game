@@ -11,9 +11,9 @@ class Answers extends React.Component {
   }
 
   componentDidMount() {
-    const { timer, isDisabled } = this.state;
     const second = 1000;
     setInterval(() => {
+      const { timer, isDisabled } = this.state;
       if (timer > 0 && isDisabled === false) return this.timeUpdate();
       return null;
     }, second);
