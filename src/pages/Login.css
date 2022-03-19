@@ -1,0 +1,30 @@
+label {
+  
+}
+
+input {
+  border-radius: 10px;
+  font-family: 'Fira Code';
+  font-size: 15px;
+  height: 30px;
+}
+
+form {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+button {
+  background-color: rgb(29, 185, 83, 1);
+  border: rgb(29, 185, 83) 1px solid;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  height: 30px;
+  transition-duration: 0.5s;
+  width: 80px;
+}

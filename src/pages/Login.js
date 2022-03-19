@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import logo from '../trivia.png';
 import { actionToken, actionPlayer, actionFetch } from '../redux/action';
+import './Login.css';
 
 class Login extends React.Component {
   state = {
@@ -64,9 +65,8 @@ class Login extends React.Component {
           <img src={ logo } className="App-logo" alt="logo" />
           <form>
             <label htmlFor="input-player-name">
-              {' '}
-              Nome:
               <input
+                placeholder="Digite seu nome"
                 value={ userName }
                 name="userName"
                 onChange={ this.handleChange }
@@ -76,9 +76,8 @@ class Login extends React.Component {
               />
             </label>
             <label htmlFor="input-gravatar-email">
-              {' '}
-              Email
               <input
+                placeholder="Digite seu email"
                 value={ userEmail }
                 name="userEmail"
                 onChange={ this.handleChange }
@@ -91,6 +90,7 @@ class Login extends React.Component {
               type="button"
               data-testid="btn-play"
               disabled={ isDisabled }
+              className={ isDisabled ? 'login-btn-disabled' : 'login-btn-enabled' }
               onClick={ this.handleClick }
             >
               Play
