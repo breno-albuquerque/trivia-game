@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionClear } from '../redux/action';
+import { actionClear, actionResetPlayer } from '../redux/action';
 import '../css/Header.css';
 import Header from './Header';
 import '../css/Feedback.css';
@@ -11,6 +11,7 @@ export class Feedback extends Component {
     const { dispatch, history } = this.props;
     history.push('/');
     dispatch(actionClear());
+    dispatch(actionResetPlayer());
   };
 
   click = () => {
