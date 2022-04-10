@@ -1,6 +1,6 @@
  ## Application link:
 
-- 
+- https://trivia-game-b.vercel.app/
 
 # What is TrybeWallet:
 
