@@ -5,8 +5,8 @@ import { actionFinish } from '../redux/action';
 import Question from './Question';
 import Header from './Header';
 import Answers from './Answers';
-import './TelaDoJogo.css';
 import Feedback from './Feedback';
+import '../css/TelaDoJogo.css';
 
 class TelaDoJogo extends Component {
   constructor() {
@@ -84,18 +84,20 @@ class TelaDoJogo extends Component {
         <Header />
         <Feedback />
 
-        <Question contador={ contador } />
+        <div className="API-container">
+          <Question contador={ contador } />
 
-        { answers.length > 0
-        && <Answers
-          contador={ contador }
-          answers={ answers }
-          isColorVisible={ isColorVisible }
-          handleScore={ this.handleScore }
-          handleColorsClasses={ this.handleColorsClasses }
-          turnColorVisible={ this.turnColorVisible }
-          handleNext={ this.handleNext }
-        /> }
+          { answers.length > 0
+          && <Answers
+            contador={ contador }
+            answers={ answers }
+            isColorVisible={ isColorVisible }
+            handleScore={ this.handleScore }
+            handleColorsClasses={ this.handleColorsClasses }
+            turnColorVisible={ this.turnColorVisible }
+            handleNext={ this.handleNext }
+          /> }
+        </div>
       </main>
 
     );
