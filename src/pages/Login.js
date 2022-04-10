@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+//  import { Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import logo from '../trivia.png';
 import { actionToken, actionPlayer, actionFetch } from '../redux/action';
-import './Login.css';
+import '../css/Login.css';
 
 class Login extends React.Component {
   state = {
@@ -25,7 +25,14 @@ class Login extends React.Component {
   handleDisable = () => {
     const { userName, userEmail } = this.state;
 
-    if (userName && userEmail !== '') {
+    //  Referência: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
+    const validateEmail = (email) => {
+      const emailPattern = /\S+@\S+\.\S+/;
+
+      return emailPattern.test(email);
+    };
+
+    if (userName.length !== 0 && validateEmail(userEmail)) {
       this.setState({
         isDisabled: false,
       });
@@ -60,13 +67,21 @@ class Login extends React.Component {
     if (result.length > 0) history.push('/tela');
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <form>
-            <label htmlFor="input-player-name">
+
+      <div className="Login-container">
+
+        <section className="login-section">
+          <img src={ logo } className="logo" alt="logo" />
+
+          <form className="login-form">
+            <label
+              className="login-label"
+              htmlFor="input-player-name"
+            >
               <input
-                placeholder="Digite seu nome"
+                autoComplete="off"
+                className="login-input"
+                placeholder="Type your nickname"
                 value={ userName }
                 name="userName"
                 onChange={ this.handleChange }
@@ -75,15 +90,23 @@ class Login extends React.Component {
                 id="input-player-name"
               />
             </label>
-            <label htmlFor="input-gravatar-email">
+            <label
+              className="login-label"
+              htmlFor="input-gravatar-email"
+            >
               <input
-                placeholder="Digite seu email"
+                autoComplete="off"
+                className="login-input"
+                placeholder="Type a valid e-mail"
                 value={ userEmail }
                 name="userEmail"
                 onChange={ this.handleChange }
                 type="email"
                 data-testid="input-gravatar-email"
                 id="input-player-name"
+                onKeyPress={
+                  (event) => (event.key === 'Enter' && !isDisabled) && this.handleClick()
+                }
               />
             </label>
             <button
@@ -97,16 +120,20 @@ class Login extends React.Component {
             </button>
           </form>
 
-          <Link to="settings">
+          {/*           <Link
+            to="settings"
+            className="settings-link"
+          >
             <button
+              className="settings-btn"
               type="button"
               data-testid="btn-settings"
             >
               Settings
             </button>
-          </Link>
+          </Link> */}
+        </section>
 
-        </header>
       </div>
     );
   }

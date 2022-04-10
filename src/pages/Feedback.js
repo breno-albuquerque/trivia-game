@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionClear } from '../redux/action';
+import { actionClear, actionResetPlayer } from '../redux/action';
+import '../css/Header.css';
+import Header from './Header';
+import '../css/Feedback.css';
 
-class Feedback extends Component {
+export class Feedback extends Component {
   handleClick = () => {
     const { dispatch, history } = this.props;
     history.push('/');
     dispatch(actionClear());
+    dispatch(actionResetPlayer());
   };
 
   click = () => {
@@ -16,55 +20,63 @@ class Feedback extends Component {
   }
 
   render() {
-    const { userName, score, finish, assertions, gravatarImage } = this.props;
+    const { score, finish, assertions } = this.props;
     const msg = assertions <= 2 ? 'Could be better...' : 'Well Done!';
+
     return (
-      <header>
-        <img src={ gravatarImage } alt="avatar" data-testid="header-profile-picture" />
-        <p data-testid="header-player-name">{ userName }</p>
-        <p data-testid="header-score">{ score }</p>
-        <p data-testid="feedback-total-question">{ assertions }</p>
+      <section className="feedback-page-container">
         { finish ? (
-          <div>
-            <p data-testid="feedback-total-score">{ score }</p>
-            <p data-testid="feedback-text">{ msg }</p>
-            <button
-              data-testid="btn-play-again"
-              type="button"
-              onClick={ this.handleClick }
-            >
-              Play Again
-            </button>
-            <button
-              data-testid="btn-ranking"
-              type="button"
-              onClick={ this.click }
-            >
-              Ranking
-            </button>
+          <div className="feedback-container">
+            <Header />
+            <div className="feedback-info-container">
+              <p
+                className="feedback-score"
+                data-testid="feedback-total-score"
+              >
+                Total Score:
+                <span className="score-span-feedback">{ score }</span>
+              </p>
+              <p
+                className="feedback-msg"
+                data-testid="feedback-text"
+              >
+                { msg }
+              </p>
+              <button
+                className="play-again-button"
+                data-testid="btn-play-again"
+                type="button"
+                onClick={ this.handleClick }
+              >
+                Play Again
+              </button>
+              <button
+                className="ranking-button"
+                data-testid="btn-ranking"
+                type="button"
+                onClick={ this.click }
+              >
+                Ranking
+              </button>
+            </div>
           </div>) : ('') }
-      </header>
+      </section>
     );
   }
 }
 
 const mapStateToProps = ({ player }) => ({
-  userEmail: player.gravatarEmail,
-  userName: player.name,
   score: player.score,
-  assertions: player.assertions,
   finish: player.finish,
-  gravatarImage: player.gravatarImage,
+  assertions: player.assertions,
 });
 
 Feedback.propTypes = {
-  gravatarImage: PropTypes.string.isRequired,
-  userName: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
-  assertions: PropTypes.number.isRequired,
   finish: PropTypes.bool.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
+  assertions: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Feedback);

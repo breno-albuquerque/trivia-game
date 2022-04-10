@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actionFinish } from '../redux/action';
 import Question from './Question';
-import Feedback from './Feedback';
+import Header from './Header';
 import Answers from './Answers';
-import './TelaDoJogo.css';
+import '../css/TelaDoJogo.css';
 
 class TelaDoJogo extends Component {
   constructor() {
@@ -68,8 +68,8 @@ class TelaDoJogo extends Component {
   }
 
   handleColorsClasses = (answer, questionObj) => {
-    if (answer === questionObj.correct_answer) return 'correct-answer';
-    return 'wrong-answer';
+    if (answer === questionObj.correct_answer) return 'unknown-answer correct-answer';
+    return 'unknown-answer wrong-answer';
   }
 
   render() {
@@ -79,22 +79,24 @@ class TelaDoJogo extends Component {
     if (contador > max) history.push('/feedback');
 
     return (
-      <div>
-        <Feedback />
+      <main className="main-game-screen">
+        <Header />
 
-        <Question contador={ contador } />
+        <div className="API-container">
+          <Question contador={ contador } />
 
-        { answers.length > 0
-        && <Answers
-          contador={ contador }
-          answers={ answers }
-          isColorVisible={ isColorVisible }
-          handleScore={ this.handleScore }
-          handleColorsClasses={ this.handleColorsClasses }
-          turnColorVisible={ this.turnColorVisible }
-          handleNext={ this.handleNext }
-        /> }
-      </div>
+          { answers.length > 0
+          && <Answers
+            contador={ contador }
+            answers={ answers }
+            isColorVisible={ isColorVisible }
+            handleScore={ this.handleScore }
+            handleColorsClasses={ this.handleColorsClasses }
+            turnColorVisible={ this.turnColorVisible }
+            handleNext={ this.handleNext }
+          /> }
+        </div>
+      </main>
 
     );
   }

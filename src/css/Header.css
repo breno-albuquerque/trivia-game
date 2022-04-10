@@ -1,0 +1,37 @@
+.Header-header {
+  background-color: #1E2D2F;
+  padding: 0 3em;
+
+  height: 15%;
+
+  font-size: 16px;
+  color: #A2A3BB;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info-container {
+  width: 65%;
+
+  display: flex;
+  justify-content: space-evenly;
+
+  font-size: 2em;
+  font-weight: 900;
+}
+
+.header-img {
+  border-radius: 5px;
+
+  height: 75%;
+  width: auto;
+
+  box-shadow: .5em .5em .5em #F7DBA7;
+}
+
+.user-info-span {
+  color: #F7DBA7;
+  margin-left: .5em;
+}
