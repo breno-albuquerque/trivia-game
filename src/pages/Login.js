@@ -25,7 +25,14 @@ class Login extends React.Component {
   handleDisable = () => {
     const { userName, userEmail } = this.state;
 
-    if (userName && userEmail !== '') {
+    //  Referência: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
+    const validateEmail = (email) => {
+      const emailPattern = /\S+@\S+\.\S+/;
+
+      return emailPattern.test(email);
+    };
+
+    if (userName.length !== 0 && validateEmail(userEmail)) {
       this.setState({
         isDisabled: false,
       });
@@ -74,7 +81,7 @@ class Login extends React.Component {
               <input
                 autoComplete="off"
                 className="login-input"
-                placeholder="Digite seu nome"
+                placeholder="Type your nickname"
                 value={ userName }
                 name="userName"
                 onChange={ this.handleChange }
@@ -90,14 +97,16 @@ class Login extends React.Component {
               <input
                 autoComplete="off"
                 className="login-input"
-                placeholder="Digite seu email"
+                placeholder="Type a valid e-mail"
                 value={ userEmail }
                 name="userEmail"
                 onChange={ this.handleChange }
                 type="email"
                 data-testid="input-gravatar-email"
                 id="input-player-name"
-                onKeyPress={ (event) => (event.key === 'Enter' && !isDisabled) && this.handleClick() }
+                onKeyPress={
+                  (event) => (event.key === 'Enter' && !isDisabled) && this.handleClick()
+                }
               />
             </label>
             <button
