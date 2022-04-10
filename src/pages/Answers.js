@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actionScore } from '../redux/action';
+import '../css/Answers.css';
 
 class Answers extends React.Component {
   state = {
-    timer: 30,
+    timer: 5,
     isDisabled: false,
     timeOut: false,
   }
@@ -27,7 +28,7 @@ class Answers extends React.Component {
 
   handleNextTimer = () => {
     this.setState({
-      timer: 30,
+      timer: 5,
       isDisabled: false,
       timeOut: false,
     });
@@ -88,7 +89,11 @@ class Answers extends React.Component {
     const { timer, isDisabled, timeOut } = this.state;
     const max = 4;
     return (
-      <div data-testid="answer-options">
+
+      <div
+        className="answers-container"
+        data-testid="answer-options"
+      >
         { answers[contador].map((answer, index) => (
           <button
             disabled={ isDisabled }
@@ -97,7 +102,7 @@ class Answers extends React.Component {
             data-testid={ answer === questionObj.correct_answer ? 'correct-answer'
               : `wrong-answer-${questionObj.incorrect_answers.indexOf(answer)}` }
             className={ isColorVisible || timeOut
-              ? handleColorsClasses(answer, questionObj) : null }
+              ? handleColorsClasses(answer, questionObj) : 'unknown-answer' }
             onClick={ ({ target }) => {
               turnColorVisible();
               this.stopTimer();
@@ -107,10 +112,13 @@ class Answers extends React.Component {
             { answer }
           </button>
         )) }
-        <p>{ timer }</p>
-        <div>
+
+        <p className="timer">{ timer }</p>
+
+        <div className="button-container">
           { timeOut || isColorVisible ? (
             <button
+              className="next-question-button"
               data-testid="btn-next"
               type="button"
               onClick={ () => {
@@ -119,7 +127,7 @@ class Answers extends React.Component {
                 this.handleNextTimer();
               } }
             >
-              {contador < max ? 'Proxima pergunta' : 'Finalizar'}
+              {contador < max ? 'Next' : 'Finish'}
             </button>) : ''}
         </div>
       </div>

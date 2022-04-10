@@ -69,8 +69,8 @@ class TelaDoJogo extends Component {
   }
 
   handleColorsClasses = (answer, questionObj) => {
-    if (answer === questionObj.correct_answer) return 'correct-answer';
-    return 'wrong-answer';
+    if (answer === questionObj.correct_answer) return 'unknown-answer correct-answer';
+    return 'unknown-answer wrong-answer';
   }
 
   render() {
