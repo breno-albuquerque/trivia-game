@@ -14,7 +14,7 @@
 - First of all, you need to type a valid e-mail (exemple@exemple.com) and your nickname.
 - Then you will have 30 seconds to answer each question.
 
-### Trybe pair:
+## Trybe pair:
 
 - This project was developed with [Ítalo Andrade](https://www.linkedin.com/in/andrade-italo/) during the Front-End module of [Trybe](https://www.betrybe.com/)
 
