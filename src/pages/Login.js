@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+//  import { Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import logo from '../trivia.png';
 import { actionToken, actionPlayer, actionFetch } from '../redux/action';
@@ -79,7 +79,7 @@ class Login extends React.Component {
               htmlFor="input-player-name"
             >
               <input
-/*                 autoComplete="off" */
+                autoComplete="off"
                 className="login-input"
                 placeholder="Type your nickname"
                 value={ userName }
@@ -95,7 +95,7 @@ class Login extends React.Component {
               htmlFor="input-gravatar-email"
             >
               <input
-/*                 autoComplete="off" */
+                autoComplete="off"
                 className="login-input"
                 placeholder="Type a valid e-mail"
                 value={ userEmail }
@@ -120,7 +120,7 @@ class Login extends React.Component {
             </button>
           </form>
 
-          <Link
+          {/*           <Link
             to="settings"
             className="settings-link"
           >
@@ -131,7 +131,7 @@ class Login extends React.Component {
             >
               Settings
             </button>
-          </Link>
+          </Link> */}
         </section>
 
       </div>
