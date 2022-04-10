@@ -5,6 +5,7 @@ import TelaDoJogo from './pages/TelaDoJogo';
 import Settings from './pages/Settings';
 import Feedback from './pages/Feedback';
 import Ranking from './pages/Ranking';
+import './css/globalStyle.css';
 
 export default function App() {
   return (

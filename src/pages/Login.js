@@ -60,13 +60,20 @@ class Login extends React.Component {
     if (result.length > 0) history.push('/tela');
 
     return (
-      <div className="App">
-        
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <form>
-            <label htmlFor="input-player-name">
+
+      <div className="Login-container">
+
+        <section className="login-section">
+          <img src={ logo } className="logo" alt="logo" />
+
+          <form className="login-form">
+            <label
+              className="login-label"
+              htmlFor="input-player-name"
+            >
               <input
+                autoComplete="off"
+                className="login-input"
                 placeholder="Digite seu nome"
                 value={ userName }
                 name="userName"
@@ -76,8 +83,13 @@ class Login extends React.Component {
                 id="input-player-name"
               />
             </label>
-            <label htmlFor="input-gravatar-email">
+            <label
+              className="login-label"
+              htmlFor="input-gravatar-email"
+            >
               <input
+                autoComplete="off"
+                className="login-input"
                 placeholder="Digite seu email"
                 value={ userEmail }
                 name="userEmail"
@@ -98,16 +110,20 @@ class Login extends React.Component {
             </button>
           </form>
 
-          <Link to="settings">
+          <Link
+            to="settings"
+            className="settings-link"
+          >
             <button
+              className="settings-btn"
               type="button"
               data-testid="btn-settings"
             >
               Settings
             </button>
           </Link>
+        </section>
 
-        </header>
       </div>
     );
   }
