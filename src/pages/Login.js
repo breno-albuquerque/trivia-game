@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import logo from '../trivia.png';
 import { actionToken, actionPlayer, actionFetch } from '../redux/action';
-import './Login.css';
+import '../css/Login.css';
 
 class Login extends React.Component {
   state = {
@@ -61,6 +61,7 @@ class Login extends React.Component {
 
     return (
       <div className="App">
+        
         <header className="App-header">
           <img src={ logo } className="App-logo" alt="logo" />
           <form>
