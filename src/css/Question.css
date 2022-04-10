@@ -10,10 +10,11 @@
   font-weight: 900;
   border-radius: 5px;
 
-  width: 50%;
-  height: 90%;
+  width: 45%;
+  height: 80%;
 
   color: #1E2D2F;
+  border: solid 5px #1E2D2F;
   background-color: #A2A3BB;
 }
 

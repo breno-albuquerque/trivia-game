@@ -5,7 +5,6 @@ import { actionFinish } from '../redux/action';
 import Question from './Question';
 import Header from './Header';
 import Answers from './Answers';
-import Feedback from './Feedback';
 import '../css/TelaDoJogo.css';
 
 class TelaDoJogo extends Component {
@@ -82,7 +81,6 @@ class TelaDoJogo extends Component {
     return (
       <main className="main-game-screen">
         <Header />
-        <Feedback />
 
         <div className="API-container">
           <Question contador={ contador } />

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { actionClear } from '../redux/action';
 import '../css/Header.css';
 import Header from './Header';
+import '../css/Feedback.css';
 
 export class Feedback extends Component {
   handleClick = () => {
@@ -22,28 +23,43 @@ export class Feedback extends Component {
     const msg = assertions <= 2 ? 'Could be better...' : 'Well Done!';
 
     return (
-      <div>
+      <section className="feedback-page-container">
         { finish ? (
-          <div>
+          <div className="feedback-container">
             <Header />
-            <p data-testid="feedback-total-score">{ score }</p>
-            <p data-testid="feedback-text">{ msg }</p>
-            <button
-              data-testid="btn-play-again"
-              type="button"
-              onClick={ this.handleClick }
-            >
-              Play Again
-            </button>
-            <button
-              data-testid="btn-ranking"
-              type="button"
-              onClick={ this.click }
-            >
-              Ranking
-            </button>
+            <div className="feedback-info-container">
+              <p
+                className="feedback-score"
+                data-testid="feedback-total-score"
+              >
+                Total Score:
+                <span className="score-span-feedback">{ score }</span>
+              </p>
+              <p
+                className="feedback-msg"
+                data-testid="feedback-text"
+              >
+                { msg }
+              </p>
+              <button
+                className="play-again-button"
+                data-testid="btn-play-again"
+                type="button"
+                onClick={ this.handleClick }
+              >
+                Play Again
+              </button>
+              <button
+                className="ranking-button"
+                data-testid="btn-ranking"
+                type="button"
+                onClick={ this.click }
+              >
+                Ranking
+              </button>
+            </div>
           </div>) : ('') }
-      </div>
+      </section>
     );
   }
 }
