@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actionClear, actionResetPlayer } from '../redux/action';
+import '../css/Ranking.css';
 
 class Ranking extends Component {
   render() {
@@ -11,39 +12,55 @@ class Ranking extends Component {
     const orderdPlayers = players.sort((a, b) => (b.score - a.score));
 
     return (
-      <div>
-        <h1 data-testid="ranking-title">Hello</h1>
+      <div className="ranking-container">
+        <header className="ranking-header">
+          <h1
+            className="ranking-title"
+            data-testid="ranking-title"
+          >
+            Ranking
+          </h1>
+        </header>
 
-        <ol>
-          { orderdPlayers.map((player, index) => (
-            <li key={ index }>
-              <p data-testid={ `player-name-${index}` }>{ player.name }</p>
-              <p data-testid={ `player-score-${index}` }>
-                {' '}
-                { player.score }
-                {' '}
-              </p>
-              <p>
-                {' '}
-                <img src="player.picture" alt="avatar" />
-                {' '}
-              </p>
-            </li>
-          )) }
-        </ol>
+        <div className="ol-container">
+          <button
+            className="ranking-home-btn"
+            type="button"
+            data-testid="btn-go-home"
+            onClick={ () => {
+              history.push('/');
+              dispatch(actionClear());
+              dispatch(actionResetPlayer());
+            } }
+          >
+            Go Home
+          </button>
+          <ol className="ranking-ol">
+            { orderdPlayers.map((player, index) => (
+              <li className="ranking-li" key={ index }>
+                <div className="position">
+                  {index + 1}
+                  º
+                </div>
+                <div className="player-info-container">
+                  <p data-testid={ `player-name-${index}` }>{ player.name }</p>
+                  <p>
+                    {' '}
+                    <img src={ player.picture } alt="avatar" />
+                    {' '}
+                  </p>
+                  <p data-testid={ `player-score-${index}` }>
+                    Score:
+                    {' '}
+                    { player.score }
+                    {' '}
+                  </p>
+                </div>
+              </li>
+            )) }
+          </ol>
 
-        <button
-          type="button"
-          data-testid="btn-go-home"
-          onClick={ () => {
-            history.push('/');
-            dispatch(actionClear());
-            dispatch(actionResetPlayer());
-          } }
-        >
-          Home
-
-        </button>
+        </div>
       </div>
     );
   }
