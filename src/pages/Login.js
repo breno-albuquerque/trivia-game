@@ -97,6 +97,7 @@ class Login extends React.Component {
                 type="email"
                 data-testid="input-gravatar-email"
                 id="input-player-name"
+                onKeyPress={ (event) => (event.key === 'Enter' && !isDisabled) && this.handleClick() }
               />
             </label>
             <button
