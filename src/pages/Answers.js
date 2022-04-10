@@ -6,7 +6,7 @@ import '../css/Answers.css';
 
 class Answers extends React.Component {
   state = {
-    timer: 5,
+    timer: 30,
     isDisabled: false,
     timeOut: false,
   }
@@ -28,7 +28,7 @@ class Answers extends React.Component {
 
   handleNextTimer = () => {
     this.setState({
-      timer: 5,
+      timer: 30,
       isDisabled: false,
       timeOut: false,
     });
