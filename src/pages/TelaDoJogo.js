@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actionFinish } from '../redux/action';
 import Question from './Question';
-import Feedback from './Feedback';
+import Header from './Header';
 import Answers from './Answers';
 import './TelaDoJogo.css';
+import Feedback from './Feedback';
 
 class TelaDoJogo extends Component {
   constructor() {
@@ -79,7 +80,8 @@ class TelaDoJogo extends Component {
     if (contador > max) history.push('/feedback');
 
     return (
-      <div>
+      <main className="main-game-screen">
+        <Header />
         <Feedback />
 
         <Question contador={ contador } />
@@ -94,7 +96,7 @@ class TelaDoJogo extends Component {
           turnColorVisible={ this.turnColorVisible }
           handleNext={ this.handleNext }
         /> }
-      </div>
+      </main>
 
     );
   }

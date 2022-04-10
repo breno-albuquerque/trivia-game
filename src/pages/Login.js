@@ -79,7 +79,7 @@ class Login extends React.Component {
               htmlFor="input-player-name"
             >
               <input
-                autoComplete="off"
+/*                 autoComplete="off" */
                 className="login-input"
                 placeholder="Type your nickname"
                 value={ userName }
@@ -95,7 +95,7 @@ class Login extends React.Component {
               htmlFor="input-gravatar-email"
             >
               <input
-                autoComplete="off"
+/*                 autoComplete="off" */
                 className="login-input"
                 placeholder="Type a valid e-mail"
                 value={ userEmail }
