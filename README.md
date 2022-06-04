@@ -2,7 +2,7 @@
 
 - https://trivia-game-b.vercel.app/
 
-# What is TrybeWallet:
+# What is Trivia Game:
 
 - It's a simple question and answer game
 - 5 questions of different categories with 30 seconds to be answerd
