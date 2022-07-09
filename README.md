@@ -1,29 +1,42 @@
- ## Application link:
+# Trivia Game:
 
-- https://trivia-game-b.vercel.app/
+It's a simple question and answer game
 
-# What is Trivia Game:
+## Links:
 
-- It's a simple question and answer game
-- 5 questions of different categories with 30 seconds to be answerd
-- There's also a ranking system available
+- Deploy: https://trivia-game-b.vercel.app/
 
-# Requirements:
+## Features:
 
-- NodeJS LTS (14+)
+- Answer five random questions with 30 second timer for each one
+- See the number of correct answers and the final result
+- See the rank of all players
 
-### Install and Run:
+## Main tech stack:
 
-- ```git clone git@github.com:breno-albuquerque/trivia-game.git```
-- ```cd trivia-game```
-- ```npm install```
-- ```npm start```
+- React.js
+- Redux
 
-## Trybe pair:
+## Running it localy:
+
+#### Requirements:
+
+- NodeJS (>16)
+
+##### Clone Repository
+
+```
+git clone git@github.com:breno-albuquerque/trivia-game.git
+cd trivia-game
+```
+
+##### Install package.json and run the app
+
+```
+npm install
+npm start
+
+```
+## Team:
 
 - This project was developed with [Ítalo Andrade](https://www.linkedin.com/in/andrade-italo/) during the Front-End module of [Trybe](https://www.betrybe.com/)
-
-### Main tech stack:
-
-- React
-- Redux
