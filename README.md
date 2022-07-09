@@ -35,7 +35,6 @@ cd trivia-game
 ```
 npm install
 npm start
-
 ```
 ## Team:
 
