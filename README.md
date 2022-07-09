@@ -17,6 +17,10 @@ It's a simple question and answer game
 - React.js
 - Redux
 
+## Team:
+
+- This project was developed with [Ítalo Andrade](https://www.linkedin.com/in/andrade-italo/) during the Front-End module of [Trybe](https://www.betrybe.com/)
+
 ## Running it localy:
 
 #### Requirements:
@@ -36,6 +40,3 @@ cd trivia-game
 npm install
 npm start
 ```
-## Team:
-
-- This project was developed with [Ítalo Andrade](https://www.linkedin.com/in/andrade-italo/) during the Front-End module of [Trybe](https://www.betrybe.com/)
